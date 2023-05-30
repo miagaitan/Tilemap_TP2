@@ -96,12 +96,6 @@ export default class Juego extends Phaser.Scene {
       .sprite(spawnPoint.x, spawnPoint.y, "door")
       .setScale(0.05);
     this.salida.visible = false;
-    spawnPoint = map.findObject("objetos", (obj) => obj.name === "bomba");
-      console.log("spawn point bomba ", spawnPoint);
-      this.bomba = this.physics.add
-      .sprite(spawnPoint.x, spawnPoint.y, "bomb")
-      .setScale(1)
-      .setBounce(1, 1);
     
     // find object layer
     // if type is "stars", add to stars group
@@ -122,7 +116,6 @@ export default class Juego extends Phaser.Scene {
     this.physics.add.collider(this.jugador, plataformaLayer);
     this.physics.add.collider(this.estrellas, plataformaLayer);
     this.physics.add.collider(this.salida, plataformaLayer);
-    this.physics.add.collider(this.bomba, plataformaLayer);
     this.physics.add.collider(
       this.jugador,
       this.estrellas,

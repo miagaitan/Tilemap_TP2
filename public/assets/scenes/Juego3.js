@@ -16,7 +16,7 @@ export default class Juego extends Phaser.Scene {
   
     preload() {
       // load assets
-      this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel2.json");
+      this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel3.json");
       this.load.image("tilesFondo", "./public/assets/images/sky.png");
       this.load.image("tilesPlataforma", "./public/assets/images/platform.png");
   
@@ -97,12 +97,12 @@ export default class Juego extends Phaser.Scene {
         .setScale(0.05);
       this.salida.visible = false;
       spawnPoint = map.findObject("objetos", (obj) => obj.name === "bomba");
-      console.log("spawn point bomba ", spawnPoint);
-      this.bomba = this.physics.add
-      .sprite(spawnPoint.x, spawnPoint.y, "bomb")
-      .setScale(1)
-      .setBounce(1, 1);
-  
+        console.log("spawn point bomba ", spawnPoint);
+        this.bomba = this.physics.add
+        .sprite(spawnPoint.x, spawnPoint.y, "bomb")
+        .setScale(1)
+        .setBounce(1, 1);
+      
       // find object layer
       // if type is "stars", add to stars group
       objectosLayer.objects.forEach((objData) => {
@@ -196,3 +196,4 @@ export default class Juego extends Phaser.Scene {
       // todo / para hacer: ganar el juego
     }
   }
+  
