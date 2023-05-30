@@ -74,8 +74,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":719.333333333333,
-                 "y":539.333333333333
+                 "x":704.666666666666,
+                 "y":467.333333333333
                 }, 
                 {
                  "height":0,
@@ -146,8 +146,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":62.6666666666667,
-                 "y":182.666666666667
+                 "x":290.666666666667,
+                 "y":300
                 }, 
                 {
                  "height":0,
@@ -168,7 +168,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":12,
+ "nextobjectid":13,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.1",

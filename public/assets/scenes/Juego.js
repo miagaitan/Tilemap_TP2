@@ -16,13 +16,13 @@ export default class Juego extends Phaser.Scene {
 
   preload() {
     // load assets
-    this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel1.json");
+    this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel2.json");
     this.load.image("tilesFondo", "./public/assets/images/sky.png");
     this.load.image("tilesPlataforma", "./public/assets/images/platform.png");
 
     this.load.image("star", "./public/assets/images/star.png");
     this.load.image("door", "./public/assets/images/door.png");
-
+    this.load.image("bomb", "./public/assets/images/bomb.png");
     this.load.spritesheet("dude", "./public/assets/images/dude.png", {
       frameWidth: 32,
       frameHeight: 48,
@@ -96,7 +96,13 @@ export default class Juego extends Phaser.Scene {
       .sprite(spawnPoint.x, spawnPoint.y, "door")
       .setScale(0.05);
     this.salida.visible = false;
-
+    spawnPoint = map.findObject("objetos", (obj) => obj.name === "bomba");
+      console.log("spawn point bomba ", spawnPoint);
+      this.bomba = this.physics.add
+      .sprite(spawnPoint.x, spawnPoint.y, "bomb")
+      .setScale(1)
+      .setBounce(1, 1);
+    
     // find object layer
     // if type is "stars", add to stars group
     objectosLayer.objects.forEach((objData) => {
@@ -116,6 +122,7 @@ export default class Juego extends Phaser.Scene {
     this.physics.add.collider(this.jugador, plataformaLayer);
     this.physics.add.collider(this.estrellas, plataformaLayer);
     this.physics.add.collider(this.salida, plataformaLayer);
+    this.physics.add.collider(this.bomba, plataformaLayer);
     this.physics.add.collider(
       this.jugador,
       this.estrellas,
