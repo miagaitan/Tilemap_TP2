@@ -88,7 +88,7 @@ export default class Juego extends Phaser.Scene {
     //  Input Events
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    // Create empty group of starts
+    // Create empty group of stars
     this.estrellas = this.physics.add.group();
     spawnPoint = map.findObject("objetos", (obj) => obj.name === "salida");
     console.log("spawn point salida ", spawnPoint);
