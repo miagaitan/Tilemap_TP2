@@ -1,10 +1,10 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
-export default class Juego extends Phaser.Scene {
+export default class Juego2 extends Phaser.Scene {
     constructor() {
       // key of the scene
       // the key will be used to start the scene by other scenes
-      super("hello-world");
+      super("Juego2");
     }
   
     init() {
@@ -16,7 +16,7 @@ export default class Juego extends Phaser.Scene {
   
     preload() {
       // load assets
-      this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel2.json");
+      this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel3.json");
       this.load.image("tilesFondo", "./public/assets/images/sky.png");
       this.load.image("tilesPlataforma", "./public/assets/images/platform.png");
   
@@ -130,6 +130,13 @@ export default class Juego extends Phaser.Scene {
         null,
         this
       );
+      this.physics.add.collider(
+      this.jugador,
+      this.salida,
+      this.pasarnivel,
+      null,
+      this
+    );
       this.score = 0;
       this.scoreText = this.add.text(20, 20, "Score:" + this.score, {
         fontSize: "28px",
@@ -187,7 +194,11 @@ export default class Juego extends Phaser.Scene {
   
       if (this.estrellas.getTotalUsed() == 0) {
         this.salida.visible = true;
-      }
+      }}
+      pasarnivel(jugador, salida) { 
+        if (this.estrellas.getTotalUsed() == 0){
+        this.scene.start("TheEnd")
+      }  }
   
       // todo / para hacer: sumar puntaje
   
@@ -195,4 +206,4 @@ export default class Juego extends Phaser.Scene {
   
       // todo / para hacer: ganar el juego
     }
-  }
+  

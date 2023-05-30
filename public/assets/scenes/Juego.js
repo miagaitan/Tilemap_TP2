@@ -96,6 +96,13 @@ export default class Juego extends Phaser.Scene {
       .sprite(spawnPoint.x, spawnPoint.y, "door")
       .setScale(0.05);
     this.salida.visible = false;
+    spawnPoint = map.findObject("objetos", (obj) => obj.name === "bomba");
+      console.log("spawn point bomba ", spawnPoint);
+      this.bomba = this.physics.add
+      .sprite(spawnPoint.x, spawnPoint.y, "bomb")
+      .setScale(1)
+      .setBounce(1, 1);
+      this.bomba.visible = false;
     
     // find object layer
     // if type is "stars", add to stars group
@@ -123,13 +130,20 @@ export default class Juego extends Phaser.Scene {
       null,
       this
     );
+    this.physics.add.collider(
+      this.jugador,
+      this.salida,
+      this.pasarnivel,
+      null,
+      this
+    );
     this.score = 0;
     this.scoreText = this.add.text(20, 20, "Score:" + this.score, {
       fontSize: "28px",
       fontStyle: "bold",
       fill: "#ffffff",
     });
-    this.timer = 30;
+    this.timer = 25;
     this.timerText = this.add.text(700, 20, this.timer, {
       fontSize: "32px",
       fontStyle: "bold",
@@ -171,21 +185,28 @@ export default class Juego extends Phaser.Scene {
     this.timer--;
     this.timerText.setText(this.timer);
     if (this.timer <= 0) {
-      this.gameOver = true;
+    this.scene.start("GameOver");
     }
   }
 
   recolectarEstrella(jugador, estrella) {
     estrella.disableBody(true, true);
-
+    
     if (this.estrellas.getTotalUsed() == 0) {
       this.salida.visible = true;
     }
+  }
 
+  pasarnivel(jugador, salida) { 
+    if (this.estrellas.getTotalUsed() == 0){
+    this.scene.start("Juego2")
+  }  }
+  
     // todo / para hacer: sumar puntaje
 
     // todo / para hacer: controlar si el grupo esta vacio
 
     // todo / para hacer: ganar el juego
   }
-}
+
+
