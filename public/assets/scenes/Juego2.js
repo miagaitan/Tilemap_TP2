@@ -16,7 +16,7 @@ export default class Juego2 extends Phaser.Scene {
   
     preload() {
       // load assets
-      this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel3.json");
+      this.load.tilemapTiledJSON("map2", "./public/tilemaps/nivel3.json");
       this.load.image("tilesFondo", "./public/assets/images/sky.png");
       this.load.image("tilesPlataforma", "./public/assets/images/platform.png");
   
@@ -53,7 +53,7 @@ export default class Juego2 extends Phaser.Scene {
         repeat: -1,
       });
   
-      const map = this.make.tilemap({ key: "map" });
+      const map = this.make.tilemap({ key: "map2" });
   
       // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
       // Phaser's cache (i.e. the name you used in preload)
@@ -102,6 +102,14 @@ export default class Juego2 extends Phaser.Scene {
       .sprite(spawnPoint.x, spawnPoint.y, "bomb")
       .setScale(1)
       .setBounce(1, 1);
+
+      this.cameras.main.startFollow(this.jugador);
+
+      this.physics.world.setBounds(0,0, map.widthInPixels, map.heightInPixels);
+      
+      this.cameras.main.setBounds(0,0, map.widthInPixels, map.heightInPixels);
+
+
   
       // find object layer
       // if type is "stars", add to stars group
