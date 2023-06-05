@@ -8,6 +8,8 @@ export default class Juego extends Phaser.Scene {
   }
 
   init() {
+
+    this.score = 0
     // this is called before the scene is created
     // init variables
     // take data passed from other scenes
@@ -16,7 +18,7 @@ export default class Juego extends Phaser.Scene {
 
   preload() {
     // load assets
-    this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel2.json");
+    this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel1.json");
     this.load.image("tilesFondo", "./public/assets/images/sky.png");
     this.load.image("tilesPlataforma", "./public/assets/images/platform.png");
 
@@ -138,7 +140,7 @@ export default class Juego extends Phaser.Scene {
       this
     );
     this.score = 0;
-    this.scoreText = this.add.text(20, 20, "Score:" + this.score, {
+    this.scoreText = this.add.text(20, 20, "Nivel: 1 - Score: " + this.score, {
       fontSize: "28px",
       fontStyle: "bold",
       fill: "#ffffff",
@@ -191,6 +193,10 @@ export default class Juego extends Phaser.Scene {
 
   recolectarEstrella(jugador, estrella) {
     estrella.disableBody(true, true);
+    this.score++;
+      this.scoreText.setText(
+        "Nivel: 1 - Score: " + this.score
+        );
     
     if (this.estrellas.getTotalUsed() == 0) {
       this.salida.visible = true;

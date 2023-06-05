@@ -8,6 +8,8 @@ export default class Juego2 extends Phaser.Scene {
   }
 
   init() {
+    this.score = 0
+    this.GameOver = false
     // this is called before the scene is created
     // init variables
     // take data passed from other scenes
@@ -16,7 +18,7 @@ export default class Juego2 extends Phaser.Scene {
 
   preload() {
     // load assets
-    this.load.tilemapTiledJSON("map2", "./public/tilemaps/nivel3.json");
+    this.load.tilemapTiledJSON("map2", "./public/tilemaps/nivel2.json");
     this.load.image("tilesFondo", "./public/assets/images/sky.png");
     this.load.image("tilesPlataforma", "./public/assets/images/platform.png");
 
@@ -101,7 +103,9 @@ export default class Juego2 extends Phaser.Scene {
     this.bomba = this.physics.add
       .sprite(spawnPoint.x, spawnPoint.y, "bomb")
       .setScale(1)
-      .setBounce(1, 1);
+      .setBounce(1, 1)
+      .setVelocity(100, 100)
+      .setCollideWorldBounds(true);
 
     // find object layer
     // if type is "stars", add to stars group
@@ -137,8 +141,15 @@ export default class Juego2 extends Phaser.Scene {
       null,
       this
     );
+    this.physics.add.collider(
+      this.jugador,
+      this.bomba,
+      this.impactoBomba,
+      null,
+      this
+    );
     this.score = 0;
-    this.scoreText = this.add.text(20, 20, "Score:" + this.score, {
+    this.scoreText = this.add.text(20, 20, "Nivel: 2 - Score: " + this.score, {
       fontSize: "28px",
       fontStyle: "bold",
       fill: "#ffffff",
@@ -156,11 +167,7 @@ export default class Juego2 extends Phaser.Scene {
       loop: true,
     });
 
-    this.cameras.main.startFollow(this.jugador);
-
-    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    
   }
 
   update() {
@@ -191,12 +198,16 @@ export default class Juego2 extends Phaser.Scene {
     this.timer--;
     this.timerText.setText(this.timer);
     if (this.timer <= 0) {
-      this.gameOver = true;
+    this.scene.start("GameOver");
     }
   }
 
   recolectarEstrella(jugador, estrella) {
     estrella.disableBody(true, true);
+    this.score++;
+      this.scoreText.setText(
+        "Nivel: 1 - Score: " + this.score
+        );
 
     if (this.estrellas.getTotalUsed() == 0) {
       this.salida.visible = true;
@@ -204,10 +215,12 @@ export default class Juego2 extends Phaser.Scene {
   }
   pasarnivel(jugador, salida) {
     if (this.estrellas.getTotalUsed() == 0) {
-      this.scene.start("TheEnd");
+      this.scene.start("Juego3");
     }
   }
-
+  impactoBomba(jugador, bomba) {
+   this.scene.start("GameOver");
+  }
   // todo / para hacer: sumar puntaje
 
   // todo / para hacer: controlar si el grupo esta vacio

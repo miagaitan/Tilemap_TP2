@@ -8,7 +8,7 @@ preload() {
 }
 create() {
     this.add.image(400,300, "end")
-    .setScale(0.5)
+    .setScale(0.75)
     .setInteractive()
     .on("pointerdown", () => this.scene.start("hello-world"));
     }

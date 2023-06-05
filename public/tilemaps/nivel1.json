@@ -139,6 +139,18 @@
                 }, 
                 {
                  "height":0,
+                 "id":10,
+                 "name":"bomba",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":274.253214901233,
+                 "y":540.646427151001
+                }, 
+                {
+                 "height":0,
                  "id":9,
                  "name":"salida",
                  "point":true,
@@ -156,10 +168,10 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":10,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.10.1",
  "tileheight":32,
  "tilesets":[
         {
@@ -301,6 +313,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.8",
+ "version":"1.10",
  "width":24
 }
