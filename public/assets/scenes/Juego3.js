@@ -149,7 +149,7 @@ export default class Juego3 extends Phaser.Scene {
       this
     );
     this.score = 0;
-    this.scoreText = this.add.text(20, 20, "Score:" + this.score, {
+    this.scoreText = this.add.text(20, 20, "Nivel: 3 - Score: " + this.score, {
       fontSize: "28px",
       fontStyle: "bold",
       fill: "#ffffff",
@@ -215,7 +215,7 @@ export default class Juego3 extends Phaser.Scene {
     estrella.disableBody(true, true);
     this.score++;
       this.scoreText.setText(
-        "Nivel: 1 - Score: " + this.score
+        "Nivel: 3 - Score: " + this.score
         );
 
     if (this.estrellas.getTotalUsed() == 0) {
