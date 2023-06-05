@@ -206,7 +206,7 @@ export default class Juego2 extends Phaser.Scene {
     estrella.disableBody(true, true);
     this.score++;
       this.scoreText.setText(
-        "Nivel: 1 - Score: " + this.score
+        "Nivel: 2 - Score: " + this.score
         );
 
     if (this.estrellas.getTotalUsed() == 0) {
