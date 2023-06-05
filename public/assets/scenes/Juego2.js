@@ -1,15 +1,15 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
-export default class Juego extends Phaser.Scene {
+export default class Juego2 extends Phaser.Scene {
   constructor() {
     // key of the scene
     // the key will be used to start the scene by other scenes
-    super("hello-world");
+    super("Juego2");
   }
 
   init() {
-
     this.score = 0
+    this.GameOver = false
     // this is called before the scene is created
     // init variables
     // take data passed from other scenes
@@ -18,7 +18,7 @@ export default class Juego extends Phaser.Scene {
 
   preload() {
     // load assets
-    this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel1.json");
+    this.load.tilemapTiledJSON("map2", "./public/tilemaps/nivel2.json");
     this.load.image("tilesFondo", "./public/assets/images/sky.png");
     this.load.image("tilesPlataforma", "./public/assets/images/platform.png");
 
@@ -55,7 +55,7 @@ export default class Juego extends Phaser.Scene {
       repeat: -1,
     });
 
-    const map = this.make.tilemap({ key: "map" });
+    const map = this.make.tilemap({ key: "map2" });
 
     // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
     // Phaser's cache (i.e. the name you used in preload)
@@ -99,13 +99,14 @@ export default class Juego extends Phaser.Scene {
       .setScale(0.05);
     this.salida.visible = false;
     spawnPoint = map.findObject("objetos", (obj) => obj.name === "bomba");
-      console.log("spawn point bomba ", spawnPoint);
-      this.bomba = this.physics.add
+    console.log("spawn point bomba ", spawnPoint);
+    this.bomba = this.physics.add
       .sprite(spawnPoint.x, spawnPoint.y, "bomb")
       .setScale(1)
-      .setBounce(1, 1);
-      this.bomba.visible = false;
-    
+      .setBounce(1, 1)
+      .setVelocity(100, 100)
+      .setCollideWorldBounds(true);
+
     // find object layer
     // if type is "stars", add to stars group
     objectosLayer.objects.forEach((objData) => {
@@ -125,6 +126,7 @@ export default class Juego extends Phaser.Scene {
     this.physics.add.collider(this.jugador, plataformaLayer);
     this.physics.add.collider(this.estrellas, plataformaLayer);
     this.physics.add.collider(this.salida, plataformaLayer);
+    this.physics.add.collider(this.bomba, plataformaLayer);
     this.physics.add.collider(
       this.jugador,
       this.estrellas,
@@ -139,13 +141,20 @@ export default class Juego extends Phaser.Scene {
       null,
       this
     );
+    this.physics.add.collider(
+      this.jugador,
+      this.bomba,
+      this.impactoBomba,
+      null,
+      this
+    );
     this.score = 0;
-    this.scoreText = this.add.text(20, 20, "Nivel: 1 - Score: " + this.score, {
+    this.scoreText = this.add.text(20, 20, "Nivel: 2 - Score: " + this.score, {
       fontSize: "28px",
       fontStyle: "bold",
       fill: "#ffffff",
     });
-    this.timer = 25;
+    this.timer = 30;
     this.timerText = this.add.text(700, 20, this.timer, {
       fontSize: "32px",
       fontStyle: "bold",
@@ -157,6 +166,8 @@ export default class Juego extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
+
+    
   }
 
   update() {
@@ -197,22 +208,22 @@ export default class Juego extends Phaser.Scene {
       this.scoreText.setText(
         "Nivel: 1 - Score: " + this.score
         );
-    
+
     if (this.estrellas.getTotalUsed() == 0) {
       this.salida.visible = true;
     }
   }
-
-  pasarnivel(jugador, salida) { 
-    if (this.estrellas.getTotalUsed() == 0){
-    this.scene.start("Juego2")
-  }  }
-  
-    // todo / para hacer: sumar puntaje
-
-    // todo / para hacer: controlar si el grupo esta vacio
-
-    // todo / para hacer: ganar el juego
+  pasarnivel(jugador, salida) {
+    if (this.estrellas.getTotalUsed() == 0) {
+      this.scene.start("Juego3");
+    }
   }
+  impactoBomba(jugador, bomba) {
+   this.scene.start("GameOver");
+  }
+  // todo / para hacer: sumar puntaje
 
+  // todo / para hacer: controlar si el grupo esta vacio
 
+  // todo / para hacer: ganar el juego
+}
