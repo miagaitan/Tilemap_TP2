@@ -200,13 +200,14 @@ export default class Juego extends Phaser.Scene {
     
     if (this.estrellas.getTotalUsed() == 0) {
       this.salida.visible = true;
+      this.score--
     }
   }
 
   pasarnivel(jugador, salida) { 
     if (this.estrellas.getTotalUsed() == 0){
-    this.scene.start("Juego2")
-  }  }
+    this.scene.start("Juego2",{score: this.score,});
+  } }
   
     // todo / para hacer: sumar puntaje
 
