@@ -7,8 +7,8 @@ export default class Juego3 extends Phaser.Scene {
     super("Juego3");
   }
 
-  init() {
-    this.score = 0
+  init({ score }) {
+    this.score = score;
     this.GameOver = false
     // this is called before the scene is created
     // init variables
@@ -104,7 +104,7 @@ export default class Juego3 extends Phaser.Scene {
       .sprite(spawnPoint.x, spawnPoint.y, "bomb")
       .setScale(1.2)
       .setBounce(1, 1)
-      .setVelocity(250, 350)
+      .setVelocity(350, 450)
       .setCollideWorldBounds(true);
 
     // find object layer
@@ -148,7 +148,7 @@ export default class Juego3 extends Phaser.Scene {
       null,
       this
     );
-    this.score = 0;
+    this.score++;
     this.scoreText = this.add.text(20, 20, "Nivel: 3 - Score: " + this.score, {
       fontSize: "28px",
       fontStyle: "bold",

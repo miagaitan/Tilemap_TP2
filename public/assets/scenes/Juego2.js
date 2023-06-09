@@ -7,8 +7,8 @@ export default class Juego2 extends Phaser.Scene {
     super("Juego2");
   }
 
-  init() {
-    this.score = 0
+  init({ score }) {
+    this.score = score;
     this.GameOver = false
     // this is called before the scene is created
     // init variables
@@ -148,7 +148,7 @@ export default class Juego2 extends Phaser.Scene {
       null,
       this
     );
-    this.score = 0;
+    this.score++;
     this.scoreText = this.add.text(20, 20, "Nivel: 2 - Score: " + this.score, {
       fontSize: "28px",
       fontStyle: "bold",
@@ -211,16 +211,21 @@ export default class Juego2 extends Phaser.Scene {
 
     if (this.estrellas.getTotalUsed() == 0) {
       this.salida.visible = true;
-    }
-  }
-  pasarnivel(jugador, salida) {
-    if (this.estrellas.getTotalUsed() == 0) {
-      this.scene.start("Juego3");
+      this.score--
     }
   }
   impactoBomba(jugador, bomba) {
-   this.scene.start("GameOver");
+    this.scene.start("GameOver");
+   }
+   
+  pasarnivel(jugador, salida) {
+    if (this.estrellas.getTotalUsed() == 0) {
+      this.scene.start("Juego3",{score: this.score,})
+      
+      ;
+    }
   }
+ 
   // todo / para hacer: sumar puntaje
 
   // todo / para hacer: controlar si el grupo esta vacio
